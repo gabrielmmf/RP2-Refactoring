@@ -6,7 +6,8 @@ public class TextStatement extends Statement {
                 "\n";
     }
 
-    public String showResultRental(Rental each) {
+    public String showResultRental(Enumeration rentals) {
+        Rental each = (Rental) rentals.nextElement();
         return "\t" + each.getMovie().getTitle() + "\t" +
                 String.valueOf(each.getCharge()) + "\n";
     }
@@ -20,19 +21,5 @@ public class TextStatement extends Statement {
         return "You earned " +
                 String.valueOf(aCustomer.getTotalFrequentRenterPoints()) +
                 " frequent renter points";
-    }
-
-    public String value(Customer aCustomer) {
-        Enumeration rentals = aCustomer.getRentals();
-        String result = showResultCustomer(aCustomer);
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            // show figures for each rental
-            result += showResultRental(each);
-        }
-        // add footer lines
-        result += showResultOwe(aCustomer);
-        result += showResultEarned(aCustomer);
-        return result;
     }
 }

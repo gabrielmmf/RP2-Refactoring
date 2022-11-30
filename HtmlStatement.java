@@ -6,7 +6,8 @@ public class HtmlStatement extends Statement {
                 "</EM></H1><P>\n";
     }
 
-    public String showResultRental(Rental each) {
+    public String showResultRental(Enumeration rentals) {
+        Rental each = (Rental) rentals.nextElement();
         return each.getMovie().getTitle() + ": " +
                 String.valueOf(each.getCharge()) + "<BR>\n";
     }
@@ -20,19 +21,5 @@ public class HtmlStatement extends Statement {
         return "On this rental you earned <EM>" +
                 String.valueOf(aCustomer.getTotalFrequentRenterPoints()) +
                 "</EM> frequent renter points<P>";
-    }
-
-    public String value(Customer aCustomer) {
-        Enumeration rentals = aCustomer.getRentals();
-        String result = showResultCustomer(aCustomer);
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            // show figures for each rental
-            result += showResultRental(each);
-        }
-        // add footer lines
-        result += showResultOwe(aCustomer);
-        result += showResultEarned(aCustomer);
-        return result;
     }
 }
